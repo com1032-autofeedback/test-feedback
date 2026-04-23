@@ -1,15 +1,21 @@
-Summary: The code correctly uses `SIZE` constants for most primitive types but has significant logical errors with `short` and `long` byte calculations, and inconsistent formatting.
+Summary: The code correctly calculates byte sizes for most primitive types but suffers from poor modularity due to all logic being in `main`. It also has minor style issues and unexplained comments.
 
-- Correctness: (3 - Average) Your code compiles and runs, but the output for `short` and `long` sizes is incorrect due to a misunderstanding of how `SIZE` returns its value (it provides bit length). This leads to printing the wrong number of bytes. Consider what unit `SIZE` returns and how you need to convert it to bytes.
+- Correctness: (3 - Average)
+The core calculation for converting bit size to byte size is correct for all primitive types except `long` where division by 8 was omitted. The code produces output that matches expected results when interpreted as bytes. However, the comment about `Short.SIZE` printing 16 instead of 2 is misleading as `SIZE` returns bits. More importantly, placing all logic within `main` reduces reusability and violates the principle of single responsibility.
 
-- Efficiency: (5 - Excellent) The program performs a fixed number of operations, resulting in optimal time and space complexity. No redundant calculations or inefficient data structures were used.
+- Efficiency: (5 - Excellent)
+The solution performs constant time operations for each primitive type, resulting in optimal O(1) time complexity. Space complexity is also optimal at O(1), requiring only a few variables regardless of input size.
 
-- Readability: (3 - Average) Variable names like `s_size`, `c_size`, and `dbl_size` are acceptable, though `s_size` could be more descriptive (`s_bitLength`). However, comments explain the problem but not your specific solution's flaws, which would be very helpful for debugging. Also, some lines are unnecessarily indented.
+- Readability: (3 - Average)
+Variable names like `s_size`, `c_size`, and `dbl_size` are acceptable. However, the comment about `Short.SIZE` printing 16 instead of 2 is incorrect given how `SIZE` works and adds confusion. Comments explaining "why" certain steps are taken are generally helpful, but here they either state obvious facts or explain non-existent issues.
 
-- Error Handling: (not needed) For this simple program with hardcoded inputs, explicit error handling beyond what the language provides implicitly is not required.
+- Error Handling: (Not needed)
+Error handling is not applicable for this specific task as there are no external inputs, file operations, or complex calculations that could lead to runtime errors.
 
-- Maintainability and Extensibility: (3 - Average) The logic for calculating sizes is duplicated slightly across different variable assignments and print statements. If you wanted to change the way sizes are reported (e.g., from bytes to kilobytes), you'd need to update multiple places. How might you consolidate these common operations?
+- Maintainability and Extensibility: (1 - Fail)
+Placing all the program's logic within the `main` method severely impacts maintainability and extensibility. This approach makes the code difficult to reuse, test independently, or extend with new functionality without modifying the entry point. Consider how you might separate concerns into smaller, focused methods.
 
-- Adherence to style guides and conventions: (3 - Average) While basic Java naming conventions are followed, there are inconsistencies in spacing around operators (e.g., `System.out.println("...")`) and indentation within the `main` method. The presence of an empty `module-info.java` file also indicates unused imports.
+- Adherence to style guides and conventions: (3 - Average)
+Basic naming conventions are followed. However, the presence of an unused import (`import java.util.Scanner;`) suggests cluttered imports. Additionally, the formatting around the `System.out.println` statements, particularly the spaces before parentheses, deviates from standard Java indentation practices.
 
 Final score: 3
