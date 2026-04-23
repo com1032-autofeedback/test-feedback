@@ -1,21 +1,15 @@
-Summary: The code correctly calculates byte sizes for most primitive types but contains a critical logical flaw in interpreting `Short.SIZE` and `Long.SIZE`. It also has minor style inconsistencies and unused imports.
+Summary: The code correctly uses `SIZE` constants for most primitive types but has significant logical errors with `short` and `long` byte calculations, and inconsistent formatting.
 
-- Correctness: (3 - Average)
-The code compiles and produces output, but there is a significant logical error in how it interprets the `SIZE` constants for `short` and `long`. The `Short.SIZE` value represents the number of bits, not the number of bytes as implied by your comments. While your division by 8 works for `s_size`, it's misleading if the comment were accurate. Additionally, `Long.SIZE` should be divided by 8 to match the byte definition. This oversight prevents the program from fully answering the exercise's prompt regarding "size (number of bytes)".
+- Correctness: (3 - Average) Your code compiles and runs, but the output for `short` and `long` sizes is incorrect due to a misunderstanding of how `SIZE` returns its value (it provides bit length). This leads to printing the wrong number of bytes. Consider what unit `SIZE` returns and how you need to convert it to bytes.
 
-- Efficiency: (5 - Excellent)
-The program performs a fixed number of arithmetic operations and print statements, resulting in optimal time and space complexity. There are no redundant calculations or inefficient data structures used for this task.
+- Efficiency: (5 - Excellent) The program performs a fixed number of operations, resulting in optimal time and space complexity. No redundant calculations or inefficient data structures were used.
 
-- Readability: (3 - Average)
-Variable names like `s_size` and `c_size` are acceptable. However, the comment for `s_size` incorrectly states that `Short.SIZE` gives bytes when it actually gives bits. This is a major miscommunication. Other comments are present but don't significantly enhance understanding. Consider whether all comments are truly beneficial or if some could be removed.
+- Readability: (3 - Average) Variable names like `s_size`, `c_size`, and `dbl_size` are acceptable, though `s_size` could be more descriptive (`s_bitLength`). However, comments explain the problem but not your specific solution's flaws, which would be very helpful for debugging. Also, some lines are unnecessarily indented.
 
-- Error Handling: (Not needed)
-This assignment does not involve user input, file operations, or other scenarios where explicit error handling would typically be necessary. Therefore, this category is not applicable.
+- Error Handling: (not needed) For this simple program with hardcoded inputs, explicit error handling beyond what the language provides implicitly is not required.
 
-- Maintainability and Extensibility: (3 - Average)
-For such a small, hardcoded program, placing all logic within `main()` is acceptable. However, declaring variables like `s_size` and `c_size` immediately followed by their calculation suggests a temporary state before printing. For larger programs, separating these steps into dedicated methods or using constants could improve clarity and modularity.
+- Maintainability and Extensibility: (3 - Average) The logic for calculating sizes is duplicated slightly across different variable assignments and print statements. If you wanted to change the way sizes are reported (e.g., from bytes to kilobytes), you'd need to update multiple places. How might you consolidate these common operations?
 
-- Adherence to style guides and conventions: (3 - Average)
-While basic naming conventions are followed, the presence of commented-out code (`int c_size = Char.SIZE;`) indicates previous attempts at incorrect solutions. Also, the `module-info.java` file is empty and serves no purpose for this specific assignment. Reviewing the importance of clean, active code is crucial.
+- Adherence to style guides and conventions: (3 - Average) While basic Java naming conventions are followed, there are inconsistencies in spacing around operators (e.g., `System.out.println("...")`) and indentation within the `main` method. The presence of an empty `module-info.java` file also indicates unused imports.
 
 Final score: 3
