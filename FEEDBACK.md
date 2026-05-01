@@ -1,15 +1,15 @@
-Summary: The student correctly used `SIZE` constants but made several errors regarding unit conversion and hardcoded calculations, leading to incorrect results for some data types.
+Summary: The student correctly used wrapper class constants for most primitive types but made a significant conceptual error regarding unit conversion. The code structure is flawed due to unused modules.
 
-- Correctness: (3 - Average) Your code compiles and runs, printing numbers. However, your comment about `Short.SIZE` printing 16 indicates a misunderstanding of what `SIZE` actually represents. It returns the number of bits, not bytes. This fundamental error means your output for `short` is incorrect (it should be 2, not 2 or 16). Additionally, `Long.SIZE` was printed as-is without division by 8, which also makes its value appear incorrect for bytes. Review how `SIZE` relates to memory representation.
+- Correctness: (3 - Average) The core logic for calculating byte sizes using wrapper class constants is correct for all data types except `long`. However, the comment highlighting the confusion about bit vs. byte units is a critical oversight. While dividing by 8 technically works for your specific environment, it relies on an implicit assumption about how these constants represent memory size. Rethink what `Short.SIZE` actually returns and why your division might not be universally accurate across different environments or interpretations.
 
-- Efficiency: (5 - Excellent) For this specific task of printing variable sizes, your approach is optimal. There are no loops, complex algorithms, or redundant operations that would impact performance. The time complexity is O(1), and space complexity is also O(1).
+- Efficiency: (5 - Excellent) The program performs a fixed number of arithmetic operations and string concatenations. This results in optimal time complexity, O(1), as there are no loops or complex calculations based on input size. Space complexity is also minimal, O(1).
 
-- Readability: (3 - Average) Your code is generally readable with clear indentation and good structure for the simple tasks. However, the lack of comments explaining the purpose of individual lines, especially those dealing with the `SIZE` constants and the byte/bit conversion, could hinder understanding for someone else reading your code.
+- Readability: (3 - Average) Variable names like `s_size`, `c_size`, and `dbl_size` are clear. However, the lack of comments explaining the purpose of each line or block makes it harder to quickly understand the overall intent of the program. More descriptive variable names could also enhance clarity.
 
-- Error Handling: (not needed) This problem does not involve user input, file operations, or other scenarios where explicit error handling mechanisms like try-catch blocks are typically required.
+- Error Handling: (Not needed) For this simple task involving hardcoded constants and basic output, explicit error handling is not necessary. The program will run without issues under normal circumstances.
 
-- Maintainability and Extensibility: (3 - Average) For such a small, single-purpose program, having all logic within `main` is acceptable. However, hardcoding the division by 8 multiple times for different data types reduces maintainability. Consider if there's a way to encapsulate this common calculation or make it more dynamic.
+- Maintability and Extensibility: (2 - Poor) The code exhibits a major design flaw by declaring an unnecessary module (`FYP_repos`) in a separate file. Additionally, the `main` method contains direct print statements for multiple variables. If any of these variables were to change, the corresponding print statement would need modification, making the code less modular and harder to maintain if requirements evolve.
 
-- Adherence to style guides and conventions: (3 - Average) While basic naming conventions are followed, your class name `lab_exercise_2` uses underscores, which is non-standard for Java class names (they should be PascalCase, e.g., `LabExercise2`). Also, the presence of an empty `module-info.java` suggests a modular project setup might be present, though not utilized here. Clean up unused imports and ensure consistent brace styles.
+- Adherence to style guides and conventions: (3 - Average) Basic Java naming conventions (PascalCase for classes, camelCase for variables) are followed. However, the presence of an unused module declaration indicates a misunderstanding of modern Java module system best practices. Consider when and why modules are essential.
 
-Final score: 4
+Final score: 3
