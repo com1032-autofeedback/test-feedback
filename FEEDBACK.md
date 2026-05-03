@@ -1,15 +1,21 @@
-Summary: The student correctly used wrapper class constants for most primitive types but made a significant conceptual error regarding unit conversion. The code structure is flawed due to unused modules.
+Summary: The student correctly used `SIZE` constants for primitive data types but made several errors regarding units (bits vs. bytes), variable naming conventions, and unnecessary code comments.
 
-- Correctness: (3 - Average) The core logic for calculating byte sizes using wrapper class constants is correct for all data types except `long`. However, the comment highlighting the confusion about bit vs. byte units is a critical oversight. While dividing by 8 technically works for your specific environment, it relies on an implicit assumption about how these constants represent memory size. Rethink what `Short.SIZE` actually returns and why your division might not be universally accurate across different environments or interpretations.
+- Correctness: (3 - Average)
+The core logic for printing the size of most primitive types in bytes is mostly correct, with the minor issue of `Long.SIZE` not being divided by 8. However, the comment indicating confusion about `Short.SIZE` returning bits instead of bytes suggests a deeper misunderstanding of the underlying unit. Additionally, declaring unused variables like `s_size` and `c_size` also indicates a lack of full correctness in handling all declared identifiers.
 
-- Efficiency: (5 - Excellent) The program performs a fixed number of arithmetic operations and string concatenations. This results in optimal time complexity, O(1), as there are no loops or complex calculations based on input size. Space complexity is also minimal, O(1).
+- Efficiency: (5 - Excellent)
+The code performs a fixed number of operations, resulting in optimal O(1) time complexity. Space complexity is also optimal at O(1).
 
-- Readability: (3 - Average) Variable names like `s_size`, `c_size`, and `dbl_size` are clear. However, the lack of comments explaining the purpose of each line or block makes it harder to quickly understand the overall intent of the program. More descriptive variable names could also enhance clarity.
+- Readability: (3 - Average)
+While some indentation is consistent, there are areas where readability could be improved. Comments often explain what was done rather than why, which isn't always helpful or accurate if the 'why' was unclear due to misinterpretation of API outputs. Variable names like `s_size`, `c_size`, and `dbl_size` could be more descriptive.
 
-- Error Handling: (Not needed) For this simple task involving hardcoded constants and basic output, explicit error handling is not necessary. The program will run without issues under normal circumstances.
+- Error Handling: (not needed)
+This category is not applicable as the problem does not involve user input, file operations, or external resources that require explicit error handling mechanisms.
 
-- Maintability and Extensibility: (2 - Poor) The code exhibits a major design flaw by declaring an unnecessary module (`FYP_repos`) in a separate file. Additionally, the `main` method contains direct print statements for multiple variables. If any of these variables were to change, the corresponding print statement would need modification, making the code less modular and harder to maintain if requirements evolve.
+- Maintainability and Extensibility: (3 - Average)
+For such a small, specific task, placing all logic within `main()` is acceptable. However, the presence of commented-out code (`int c_size = Char.SIZE;`) and unused local variables (`int s_size = Short.SIZE;`) detracts from maintainability. Declaring only necessary variables improves clarity and reduces potential future clutter.
 
-- Adherence to style guides and conventions: (3 - Average) Basic Java naming conventions (PascalCase for classes, camelCase for variables) are followed. However, the presence of an unused module declaration indicates a misunderstanding of modern Java module system best practices. Consider when and why modules are essential.
+- Adherence to style guides and conventions: (2 - Poor)
+The code violates standard Java naming conventions. Method names should be lowercase (e.g., `lab_exercise_2`) and follow camelCase. Similarly, variable names like `s_size` and `c_size` deviate from common practice, which typically uses camelCase (e.g., `shortSize`). Unused imports and declarations should also be removed.
 
 Final score: 3
