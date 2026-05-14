@@ -1,15 +1,27 @@
-Summary: The code correctly reads from a file and adds line numbers, but has significant issues with style, error handling, and resource management due to outdated Java I/O practices.
+Summary: The code correctly reads from a hardcoded file, adds line numbers, and prints them. However, it suffers from significant style violations, poor error handling, and lacks modularity and extensibility.
 
-- Correctness: (3 - Average) The core logic for reading the file and printing lines with line numbers is functional. However, the program fails to handle cases where the file does not exist or cannot be opened, leading to a runtime crash rather than graceful failure or informative feedback. Additionally, using `java.io.File` and `java.util.Scanner` without proper exception handling for file operations can lead to resource leaks if an unexpected condition occurs during execution.
+- Correctness: (3 - Average)
+The core logic of reading the file and printing lines with line numbers is mostly correct. It handles empty files gracefully. However, the program hardcodes the filename ("file.txt") instead of accepting it as input or making it configurable, limiting its flexibility. Additionally, it doesn't handle potential `FileNotFoundException` if the file does not exist, which would cause a runtime crash.
 
-- Efficiency: (5 - Excellent) For the given task of reading and processing a single file sequentially, the approach is optimal in terms of both time complexity (O(N), where N is the number of characters in the file) and space complexity (O(L) for storing each line's content, L being the average line length).
+- Efficiency: (5 - Excellent)
+The solution demonstrates optimal time complexity by processing the file line-by-line. Space complexity is also efficient, using only a constant amount of extra memory regardless of the file size, which is ideal for this type of operation.
 
-- Readability: (3 - Average) Variable names like `f`, `s`, and `i` could be more descriptive. The overall structure is clear, but comments explaining the purpose of different sections would enhance understanding further, especially for someone unfamiliar with the code.
+- Readability: (2 - Poor)
+The code's readability is severely hampered by incorrect indentation, inconsistent brace placement, and non-standard naming conventions. This makes the flow difficult to follow visually, especially when trying to understand nested structures like the outer `class Main`.
 
-- Error Handling: (1 - Fail) There is no explicit error handling implemented. If the specified file does not exist or cannot be accessed, the program will terminate abruptly with an `IOException`. Robust applications must anticipate these scenarios by catching exceptions and providing appropriate responses to the user.
+- Error Handling: (2 - Poor)
+The submission completely omits error handling. A missing file will lead to a `FileNotFoundException` without any graceful recovery mechanism, causing the program to terminate abruptly. Consider how you might check if the file exists before attempting to open it.
 
-- Maintability and Extensibility: (4 - Good) The program is small enough that placing all logic within the `main` method is acceptable. It avoids hardcoding values other than the filename, making it reasonably easy to modify the input file name. The use of basic I/O classes is straightforward, although modern alternatives are preferred for better robustness.
+- Maintainability and Extensibility: (1 - Fail)
+This category scores very low due to severe issues in design. All logic resides within the `main` method, creating "spaghetti code." The file path is hardcoded, preventing easy modification. There is no clear separation of concerns between different tasks, such as file opening and line numbering. To change behavior or add features, one must directly modify the `main` method, which is fragile and inflexible.
 
-- Adherence to style guides and conventions: (2 - Poor) The most significant issue here is the use of fully qualified class names (`java.io.File`, `java.util.Scanner`) instead of their import statements and simple names (e.g., `File`, `Scanner`). This is a major deviation from standard Java idioms and reduces conciseness. While indentation is correct, the overall naming convention for classes and variables deviates from common practice.
+- Adherence to style guides and conventions: (1 - Fail)
+The code grossly violates standard Java style guidelines. Class names (e.g., `lab_exercise_2`, `Main`) do not use PascalCase, variable names (`f`, `s`, `i`) are not descriptive or consistent, and brace styles are inconsistent across the code. Proper formatting and adherence to conventions significantly improve code quality and collaboration.
 
-Final score: 3
+Final score: 2
+
+Pseudocode scaffolding:
+Program Start
+  Get the name of the file to read from the user or command line arguments
+  Check if the file exists at the given location
+    If file does not exist
