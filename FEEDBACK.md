@@ -1,22 +1,27 @@
-Summary: The code has fundamental logical errors regarding file reading, resulting in incorrect output for all inputs. It also fails to handle critical resources like files or input streams properly.
+Summary: Your code has a fundamental logical error in file reading, causing it to print the filename repeatedly instead of its contents. Additionally, there are significant style and naming convention issues.
 
-- Correctness: (2 - Poor) Your code compiles but produces incorrect results for any valid input file due to a flawed loop condition. It will always print "1: file.txt" because `while (file != null)` is never false. Additionally, you haven't implemented actual file reading logic, so the core task of printing each line with a line number is not accomplished. How can you check if a file actually contains lines to iterate over?
+- Correctness: (2 - Poor)
+Your program does not correctly implement file reading or process the file's content as requested by the problem statement. The `while` loop condition `while (file != null)` is incorrect because `file` is an object reference, and it will never be `null`. More critically, you're printing the `File` object itself rather than any lines from the file. How would you iterate through each line of text within a file?
 
-- Efficiency: (3 - Average) For this simple file reading task, basic iteration is sufficient, leading to average time complexity. However, your current implementation does not perform any actual file parsing or line extraction, which means it's not addressing the problem's requirements fully. Consider how different approaches might impact performance for very large files.
+- Efficiency: (not needed)
 
-- Readability: (4 - Good) Variable names like `lineNumber` are clear and descriptive. The overall structure is well-indented, making the flow easy to follow. While comments explain the "what," they often lack explanation of the "why" behind certain design choices, particularly regarding the loop condition and missing file content handling.
+- Readability: (3 - Average)
+The variable names like `lineNumber` are generally clear. However, comments explaining logic, especially for complex parts, could be more helpful. Consider what actions your code performs and why. Is the current output what was intended? What steps are necessary to actually read and display the file's contents line by line?
 
-- Error Handling: (1 - Fail) Your program lacks essential error handling. It does not manage resources like file streams, which would lead to resource leaks. More critically, it does not validate the existence or readability of the specified file, causing runtime crashes for non-existent files instead of graceful failure. Think about what happens when a file cannot be opened.
+- Error Handling: (2 - Poor)
+Your code lacks basic error handling. For instance, if the file "file.txt" does not exist, the program will crash with an `IllegalArgumentException` when trying to create a `File` object with a non-existent path. Similarly, if the file cannot be accessed due to permissions, it will crash with an `IOException`. Think about how you can gracefully handle these situations without crashing the entire application.
 
-- Maintainability and Extensibility: (2 - Poor) The hardcoded filename "file.txt" makes the program inflexible; it only works with one specific file without modification. The absence of modular code within the `Main` class reduces its maintainability. All file-related logic is contained within the `main` method, which limits reusability and extensibility.
+- Maintability and Extensibility: (2 - Poor)
+Hardcoding the filename "file.txt" directly into your source code makes the program inflexible. If you want to test with a different file, you must manually change this string. How might you make the program accept the filename as an argument so it becomes reusable and adaptable to various inputs?
 
-- Adherence to style guides and conventions: (3 - Average) Basic Java naming conventions for classes and variables are followed. However, placing the `Main` inner class inside another `lab_exercise_2` class is unconventional. This nested structure is generally discouraged unless there is a specific need for encapsulation. Review standard practices for organizing classes.
+- Adherence to style guides and conventions: (2 - Poor)
+While the basic structure is acceptable, there are several deviations from standard Java conventions. Most notably, the class name `lab_exercise_2` uses underscores, which violates the PascalCase convention for class names in Java. Also, the inner `Main` class declaration inside `lab_exercise_2` is unnecessary and creates confusion about scope. Review standard Java naming conventions for classes, methods, and variables.
 
 Final score: 2
 
 Pseudocode scaffolding:
 
-```
-FUNCTION readFileWithLineNumbers(filePath):
-    ATTEMPT TO open the file at filePath for reading:
-        IF
+Function main():
+    Get the file path from command-line arguments (or default to "default_file.txt").
+    Attempt to open the file at the given path.
+        If opening
